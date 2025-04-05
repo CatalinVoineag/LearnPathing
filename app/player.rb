@@ -24,19 +24,19 @@ class Player
   end
 
   def handle_movement
-    if args.inputs.left
+    if @args.inputs.left
       @x -= SPEED
     end
 
-    if args.inputs.right
+    if @args.inputs.right
       @x += SPEED
     end
 
-    if args.inputs.up
+    if @args.inputs.up
       @y += SPEED
     end
 
-    if args.inputs.down
+    if @args.inputs.down
       @y -= SPEED
     end
   end
@@ -51,7 +51,7 @@ class Player
   end
 
   def tile_index
-    args.state.tiles.find_index do |tile|
+    @args.state.tiles.find_index do |tile|
       tile.data.intersect_rect?(middle_point)
     end
   end

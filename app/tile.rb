@@ -50,9 +50,6 @@ class Tile
             w: tile_size,
             h: tile_size,
             path: 'sprites/grass.png',
-            r: 0,
-            g: 0,
-            b: 0,
           }
         )
       end

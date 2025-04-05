@@ -10,19 +10,9 @@ def tick(args)
   Tile.update_distance_from_player(args)
 
   args.state.player.handle_movement
+  args.state.enemy.handle_movement
 
-  player_tile = args.state.tiles[args.state.player.tile_index]
-  player_tile.r = 255
-  player_tile.g = 0
-  player_tile.b = 0
-  args.outputs.debug << "Player tile #{player_tile.data}"
-  args.outputs.debug << "Distance from player #{args.state.tiles[320].distance_from_player}"
-
-  closest_neighbor_to_the_player = args.state.enemy.closest_neighbor_to_the_player
-
-  closest_neighbor_to_the_player.r = 255
-  closest_neighbor_to_the_player.g = 0
-  closest_neighbor_to_the_player.b = 0
+  show_enemy_path(args)
 
   args.outputs.sprites << [
     args.state.tiles.map(&:data),
@@ -60,4 +50,21 @@ def init_enemy(tile_number, args)
     },
     args: args,
   )
+end
+
+def show_enemy_path(args)
+  closest_neighbor_to_the_player = args.state.enemy.closest_neighbor_to_the_player
+
+  closest_neighbor_to_the_player.r = 255
+  closest_neighbor_to_the_player.g = 0
+  closest_neighbor_to_the_player.b = 0
+
+  # set the color back
+  args.state.tiles.each do |tile|
+    next if tile == closest_neighbor_to_the_player
+
+    tile.r = nil
+    tile.g = nil
+    tile.b = nil
+  end
 end

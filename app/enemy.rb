@@ -1,6 +1,7 @@
 require_relative 'tile'
 
 class Enemy
+  SPEED = 1
   attr_accessor :x, :y, :w, :h, :path, :args
 
   def initialize(hash = {}, args:)
@@ -20,6 +21,28 @@ class Enemy
       h: h,
       path: path,
     }
+  end
+
+  def handle_movement
+    return if args.geometry.distance(middle_point, args.state.player.middle_point) < 20
+
+    next_tile = closest_neighbor_to_the_player
+
+    if next_tile.x > @x
+      @x += SPEED
+    end
+
+    if next_tile.x < @x
+      @x -= SPEED
+    end
+
+    if next_tile.y > @y
+      @y += SPEED
+    end
+
+    if next_tile.y < @y
+      @y -= SPEED
+    end
   end
 
   def middle_point
